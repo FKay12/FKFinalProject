@@ -1,0 +1,244 @@
+<!--
+Mobile web development 
+Assignment 3
+Created by: Fatima Kharodia
+email:      fkharodia2883@conestogac.on.ca
+App referenced from PROG3185 Mobile apps assignments, and slides
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>FK Final Project</title>
+       <!--        JQuery      -->
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <!--        JQeuery Mobile      -->
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <!--jQuery validation library-->
+        <script src="js/lib/jquery.validate.js"></script>
+        <!--        JS files         -->
+        <script src="js/FKdatabase.js"></script>
+        <script src="js/FKfeedbackDAL.js"></script>
+        <script src="js/FKglobal.js"></script>
+        <script src="js/FKutil.js"></script>
+        <script src="js/FKfacade.js"></script>
+        <!--        Style sheet         -->
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+        <link rel="stylesheet" type="text/css" href="css/FKmystyle.css">
+    </head>
+	<body>
+        <!-- Home Page-->
+	<div id="FKHomePage" data-role="page">
+            <header data-role="header" data-theme="b">
+                <h1>FK Final Project</h1>
+                <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+            </header>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#FKHomePage" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                        <li><a href="#FKAddFeedbackPage" data-icon="plus">Add</a></li>
+                        <li><a href="#FKViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                        <li><a href="#FKSettingsPage" data-icon="gear">Settings</a></li>
+                        <li><a href="#FKAboutPage" data-icon="info">About</a></li>
+                    </ul>
+                </div>
+            <section data-role="content">
+                <center><h1>Fatima Kharodia's Final Project</h1></center>
+                <center><p>Welcome to Fatima Kharodia's Final Mobile Application Project.</p></center>
+                <center><img src="img/FK-icon.png" alt="FK Icon"></center>
+                <center><p>This app is intended to leave reviews on popular makeup brands and products, <br>to help out other beauty enthusiasts!</p></center>
+            </section>
+            
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; Fatima Kharodia</h4>
+            </footer>
+        </div>
+        <!-- Add Review Page-->
+        <div id="FKAddFeedbackPage" data-role="page">
+                <header data-role="header" data-theme="b">
+                    <h1>Add a Review</h1>
+                    <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+                </header>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#FKHomePage" data-icon="home">Home</a></li>
+                            <li><a href="#FKAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist">Add</a></li>
+                            <li><a href="#FKViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                            <li><a href="#FKSettingsPage" data-icon="gear">Settings</a></li>
+                            <li><a href="#FKAboutPage" data-icon="info">About</a></li>
+                        </ul>
+                    </div>
+                <section data-role="content">
+                        <form id="addFdbck" name="addFdbck" data-ajax="false">
+                        <label for="text-basic">Makeup Brand/Product Name:</label>
+                        <input type="text" name="txtName" id="txtName" >
+                        <div class="form-group">
+                        <label for="FKRecommend">Would you recommend this product?:</label>
+                        <select class="FKRecommend" id="FKRecommend" name="FKRecommend">
+                        </select>
+                        </div>
+                        <label for="text-basic">Reviewer Email:</label>
+                        <input type="text" name="txtEmail" id="txtEmail" >
+                        <label for="txtComments">Reviewer Comments:</label>
+                        <textarea cols="40" rows="8" name="txtComments" id="txtComments"></textarea>
+                        <label for="txtReviewDate">Review Date:</label>
+                        <input type="date" name="txtReviewDate" id="txtReviewDate">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="FKRatingCheck">
+                            <label class="custom-control-label" for="FKRatingCheck">Do you want to add ratings?</label>
+                          </div>
+                        <div id="FKRating" hidden>
+                        <label for="text-basic">Quality(0-5):</label>
+                        <input type="number" id="quality" name="quality" value="0">
+                        <label for="text-basic">Source (Ethically Sourced/ Ingredients)(0-5):</label>
+                        <input type="number" id="Source" name="Source" value="0">
+                        <label for="text-basic">Value(0-5):</label>
+                        <input type="number" id="value" name="value" value="0">
+                        <label for="text-basic">Overall Rating(calculated):</label>
+                        <input type="text" id="rating" disabled>
+                        </div>
+                        <input type="button" id="btnSave" data-inline="true" value="Save">
+                    </form>
+                </section>
+                <footer data-role="footer" data-theme="b" data-position="fixed">
+                    <h4>&copy; Fatima Kharodia</h4>
+                </footer>
+            </div>
+            <!-- List of Reviews Page-->
+        <div id="FKViewFeedbackPage" data-role="page">
+                <header data-role="header" data-theme="b">
+                    <h1>List of Reviews</h1>
+                    <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+                </header>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#FKHomePage" data-icon="home">Home</a></li>
+                            <li><a href="#FKAddFeedbackPage" data-icon="plus" >Add</a></li>
+                            <li><a href="#FKViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a></li>
+                            <li><a href="#FKSettingsPage" data-icon="gear">Settings</a></li>
+                            <li><a href="#FKAboutPage" data-icon="info">About</a></li>
+                        </ul>
+                    </div>
+                <section data-role="content">
+                        <ul data-role="listview" data-inset="true" id="reviewList">
+                         
+                        </ul>
+                </section>
+                <footer data-role="footer" data-theme="b" data-position="fixed">
+                    <h4>&copy; Fatima Kharodia</h4>
+                </footer>
+            </div>
+
+            <!-- Modify Review Page-->
+        <div id="FKEditFeedbackPage" data-role="page">
+                <header data-role="header" data-theme="b">
+                    <h1>Modify Review</h1>
+                    <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+                </header>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#FKHomePage" data-icon="home">Home</a></li>
+                            <li><a href="#FKAddFeedbackPage" data-icon="plus" >Add</a></li>
+                            <li><a href="#FKViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a></li>
+                            <li><a href="#FKSettingsPage" data-icon="gear">Settings</a></li>
+                            <li><a href="#FKAboutPage" data-icon="info">About</a></li>
+                        </ul>
+                    </div>
+                    <section data-role="content">
+                            <form id="modFdbck" name="modFdbck">
+                            <label >Business Name:</label>
+                            <input type="text"  id="txtName2" name="txtName2" value="">
+                            <label >Reviewer Email:</label>
+                            <input type="text"  id="txtEmail2" name="txtEmail2" value="">
+                            <label for="textarea">Reviewer Comments:</label>
+                            <textarea cols="40" rows="8" name="textarea" id="txtComments2"></textarea>
+                            <label >Review Date:</label>
+                            <input type="date"  id="txtReviewDate2" name="txtReviewDate2" value="">
+                            <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="FKRatingCheck2">
+                            <label class="custom-control-label" for="FKRatingCheck2">Do you want to add ratings?</label>
+                            </div>
+                            <div id="FKRating2" class="FKRating2" style="display:none">
+                            <label >Quality(0-5):</label>
+                            <input type="number" id="quality2" name="quality2" value="0">
+                            <label >Source(0-5) (Ethically Sourced/ Ingredients):</label>
+                            <input type="number" id="Source2" name="Source2" value="0">
+                            <label >Value(0-5):</label>
+                            <input type="number" id="value2" name="value2" value="0">
+                            <label >Overall Rating(calculated):</label>
+                            <input type="text" id="rating2" disabled>
+                            </div>
+                            <input type="button" data-inline="true" id="btnCancel"value="Cancel">
+                            <input type="button" data-inline="true" id="btnDelete"value="Delete">
+                            <input type="button" data-inline="true" id="btnUpdate" value="Update">
+                        </form>
+                    </section>
+                <footer data-role="footer" data-theme="b" data-position="fixed">
+                    <h4>&copy; Fatima Kharodia</h4>
+                </footer>
+            </div>
+           
+            <!-- Settings Page-->
+        <div id="FKSettingsPage" data-role="page">
+                <header data-role="header" data-theme="b">
+                    <h1>Settings</h1>
+                    <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+                </header>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#FKHomePage" data-icon="home">Home</a></li>
+                            <li><a href="#FKAddFeedbackPage" data-icon="plus" >Add</a></li>
+                            <li><a href="#FKViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                            <li><a href="#FKSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a></li>
+                            <li><a href="#FKAboutPage" data-icon="info">About</a></li>
+                        </ul>
+                    </div>
+                    <section data-role="content">
+                            <form>
+                            <label for="defaultEmail">Default Reviewer Email:</label>
+                            <input type="text" name="defaultEmail" id="defaultEmail" value="fkharodia2883@conestogac.on.ca">
+                            <input type="button" id="btnDeflts" class="saveDflts" value="Save Defaults">
+                            <input type="button" data-theme="b"value="Clear Database" id="FKClearDatabase">
+                        </form>
+                    </section>
+                <footer data-role="footer" data-theme="b" data-position="fixed">
+                    <h4>&copy; Fatima Kharodia</h4>
+                </footer>
+            </div>
+             <!-- About-->
+             <div id="FKAboutPage" data-role="page">
+                <header data-role="header" data-theme="b">
+                    <h1>About</h1>
+                    <center><img src="img/FK-icon.png" alt="FK Icon" width="30" height="30"></center>
+                </header>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#FKHomePage" data-icon="home">Home</a></li>
+                            <li><a href="#FKAddFeedbackPage" data-icon="plus" >Add</a></li>
+                            <li><a href="#FKViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                            <li><a href="#FKSettingsPage" data-icon="gear" >Settings</a></li>
+                            <li><a href="#FKAboutPage" data-icon="info" class="ui-btn-active ui-state-persist">About</a></li>
+                        </ul>
+                    </div>
+                    <section data-role="content">
+                        <center><h1>About Fatima Kharodia</h1></center>
+                        <center>I am currently in my second year in the ITID program at Conestoga College<br>
+                        I have a huge passion for makeup, and this is where my idea of this mobile application came into place</center>
+                        <center><img src="img/FK-icon.png" alt="FK Icon"></center>
+                    </section>
+                    <section data-role="content">
+                        <center><p>Please feel free to contact me if you have any questions or comments!</p></center>
+                    <a href="index.html" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-left">Call:(519) 748-5220</a>
+                    <a href="mailto:fkharodia2883@conestogac.on.ca" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-left">fkharodia2883@conestogac.on.ca</a>
+                    <center><p>Website:</p></center>
+                    <a href="http://www.conestogac.on.ca/" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-left">Conestoga College</a>
+                   
+                    </section>
+                    </section>
+                <footer data-role="footer" data-theme="b" data-position="fixed">
+                    <h4>&copy; Fatima Kharodia</h4>
+                </footer>
+            </div>
+	</body>
+</html>
